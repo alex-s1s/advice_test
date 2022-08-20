@@ -1,0 +1,22 @@
+.home{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+
+.section{
+    background-color: rgb(248, 236, 220);
+}
+
+@media screen and (max-width: 600px) {
+    .home-doctor, .tables-card, .home-queries{
+        flex-direction: column;
+        justify-content: center;
+        width: 100% !important;
+    }
+
+    .queries{
+        padding: 0 0.5rem;
+    }
+}
