@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./index.css";
 import { MdEdit, MdSearch } from "react-icons/md";
 import Badge from "../Badge";
 import ModalComponent from "../Modal";
+import { GlobalContext } from "../../hooks/context/globalState";
+import useDataQuerie from "../../locales/dataQueries";
+import ShowData from "../ShowData";
 
 function TableList() {
+  const contextForm = useContext(GlobalContext);
+  const { Time } = useDataQuerie();
+
   const [modal, setModal] = useState(false);
+  const [showData, setShowData] = useState(false);
+  const [idShow, setIdShow] = useState();
 
   const toggle = () => {
     setModal(!modal);
-    console.log(modal);
   };
+
+  const toggleShow = () => {
+    setShowData(!showData);
+  };
+
+  function showPatience(id) {
+    setIdShow(id);
+    toggleShow();
+  }
 
   return (
     <>
@@ -22,127 +38,54 @@ function TableList() {
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CPF</th>
-                <th scope="col">Endereço</th>
                 <th scope="col">Sexo</th>
                 <th scope="col">Horário</th>
-                <th scope="col">valor consulta</th>
+                <th scope="col">Valor</th>
                 <th scope="col">Status</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody className="table-group-divider table-borderless">
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>
-                  <Badge type="info" status="Aberto" />
-                </td>
-                <td>
-                  <div className="d-flex justify-content-around">
-                    <MdEdit size={26} className="pointer" onClick={toggle} />
-                    <MdSearch size={26} className="pointer" />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                <td>@fat</td>
-                <td>
-                  <Badge type="warning" status="fechado" />
-                </td>
-                <td>
-                  <div className="d-flex justify-content-around">
-                    <MdEdit size={26} className="pointer" onClick={toggle} />
-                    <MdSearch size={26} className="pointer" />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>
-                  <Badge type="info" status="Aberto" />
-                </td>
-                <td>
-                  <div className="d-flex justify-content-around">
-                    <MdEdit size={26} className="pointer" onClick={toggle} />
-                    <MdSearch size={26} className="pointer" />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>
-                  <Badge type="warning" status="fechado" />
-                </td>
-                <td>
-                  <div className="d-flex justify-content-around">
-                    <MdEdit size={26} className="pointer" onClick={toggle} />
-                    <MdSearch size={26} className="pointer" />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>
-                  <Badge type="warning" status="fechado" />
-                </td>
-                <td>
-                  <div className="d-flex justify-content-around">
-                    <MdEdit size={26} className="pointer" onClick={toggle} />
-                    <MdSearch size={26} className="pointer" />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>
-                  <Badge type="warning" status="fechado" />
-                </td>
-                <td>
-                  <div className="d-flex justify-content-around">
-                    <MdEdit size={26} className="pointer" onClick={toggle} />
-                    <MdSearch size={26} className="pointer" />
-                  </div>
-                </td>
-              </tr>
+              {contextForm.patients.map((data) => {
+                return (
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{data.name}</td>
+                    <td>{data.cpf}</td>
+                    <td>{data.gender === "1" ? "Masculino" : "Feminino"}</td>
+                    <td>
+                      {Time?.map((time) => time.id === +data.time && time.hour)}
+                    </td>
+                    <td>{`R$${data.price}`}</td>
+                    <td>
+                      {data.status === "warning" ? (
+                        <Badge type={data.status} status="Fechado" />
+                      ) : (
+                        <Badge type={data.status} status="Aberto" />
+                      )}
+                    </td>
+                    <td>
+                      <div className="d-flex justify-content-around">
+                        <MdEdit
+                          size={26}
+                          className="pointer"
+                          onClick={toggle}
+                        />
+                        <MdSearch
+                          size={26}
+                          className="pointer"
+                          onClick={() => showPatience(data.id)}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
         <ModalComponent toggle={toggle} show={modal} />
+        <ShowData id={idShow} toggle={toggleShow} show={showData} />
       </div>
     </>
   );

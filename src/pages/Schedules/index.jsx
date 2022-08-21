@@ -3,8 +3,7 @@ import TableComponent from "../../components/TableList";
 
 function Schedules() {
   return (
-    <div className="schedules">
-      <h1>Schedules</h1>
+    <div className="schedules mt-5">
       <TableComponent />
     </div>
   );

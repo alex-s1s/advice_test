@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import "./index.css";
+import { GlobalContext } from "../../hooks/context/globalState";
 
 function RegistrationForm(props) {
-  const { register, handleSubmit } = useForm();
+  const { addPatiente } = useContext(GlobalContext);
 
-  const onSubmit = (data) => console.log(data);
+  const schema = yup
+    .object({
+      address: yup.string().required("Adicione o endereço"),
+      date: yup.string().required("Adicione a data da consulta"),
+      name: yup.string().required("Adicione o nome do paciente"),
+      cpf: yup.string().required("Adicione o CPF do paciente"),
+      price: yup.string().required("Adicione o valor da consulta"),
+      status: yup.string().required("Adicione o status da consulta"),
+      time: yup.string().required("Adicione o horário da consulta"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = () => {
+    const valuesForm = getValues();
+    addPatiente(valuesForm);
+  };
 
   return (
     <>
@@ -19,8 +46,12 @@ function RegistrationForm(props) {
               name="name"
               type="text"
               class="form-control"
-              required
             />
+            {errors.name?.message ? (
+              <p className="text-danger pt-1">{errors.name?.message}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div>
@@ -30,11 +61,15 @@ function RegistrationForm(props) {
             <input
               {...register("cpf")}
               type="text"
-              required
               class="form-control"
               id="cpf"
               aria-describedby="cpf"
             />
+            {errors.cpf?.message ? (
+              <p className="text-danger pt-1">{errors.cpf?.message}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div class="form-group">
@@ -42,11 +77,15 @@ function RegistrationForm(props) {
             <input
               {...register("address")}
               type="text"
-              required
               class="form-control"
               id="address"
               placeholder="Rua Brasil, nº 0"
             />
+            {errors.address?.message ? (
+              <p className="text-danger pt-1">{errors.address?.message}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div>
@@ -55,7 +94,6 @@ function RegistrationForm(props) {
               {...register("gender")}
               class="form-select"
               aria-label="Default select example"
-              required
             >
               <option value="1">Masculino</option>
               <option value="2">Feminino</option>
@@ -67,15 +105,20 @@ function RegistrationForm(props) {
             <div class="input-group mb-3">
               <span class="input-group-text m-0">R$</span>
               <input
-                required
                 {...register("price")}
                 type="number"
                 class="form-control"
               />
             </div>
+
+            {errors.price?.message ? (
+              <p className="text-danger">{errors.price?.message}</p>
+            ) : (
+              ""
+            )}
           </div>
 
-          <div className="d-flex flex-column m-0">
+          <div className="d-flex flex-column m-0 pb-1">
             <label for="exampleDate">Data</label>
             <input
               className="rounded p-2 border border-2"
@@ -85,6 +128,12 @@ function RegistrationForm(props) {
               placeholder="date"
               type="date"
             />
+
+            {errors.date?.message ? (
+              <p className="text-danger pt-1">{errors.date?.message}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div>
@@ -93,15 +142,14 @@ function RegistrationForm(props) {
               {...register("time")}
               class="form-select"
               aria-label="Default select example"
-              required
             >
               {props?.time.map((hours) => {
-                return <option value={hours.hour}>{hours.hour}</option>;
+                return <option value={hours.id}>{hours.hour}</option>;
               })}
             </select>
           </div>
 
-          <div>
+          <div className="mb-2">
             <label for="name" class="form-label">
               Status
             </label>

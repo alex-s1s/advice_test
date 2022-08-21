@@ -35,7 +35,7 @@ function Home() {
           <span>Consultas marcadas</span>
           <div className="queries row g-2">
             <CalendarComponent onChange={onChange} />
-            <ListQueries value={dateCalendar} time={Time} />
+            <ListQueries value={dateCalendar} time={Time} home="true" />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import RegistrationForm from "../RegistrationForm";
 
 function ModalComponent(props) {
   const { Time } = useDataQuerie();
-  console.log(props);
+
   return (
     <>
       <Modal isOpen={props.show} toggle={props.toggle}>
