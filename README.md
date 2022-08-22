@@ -15,6 +15,8 @@ Sistema de gestão de consultas, com inserção, visualização e deleção.
 
 **BootStrap**. 
 
+**Resposividade**. 
+
 **ReactStrap**. 
 
 **React-hook-form**. 
