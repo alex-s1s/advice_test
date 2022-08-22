@@ -9,9 +9,9 @@ function ModalComponent(props) {
   return (
     <>
       <Modal isOpen={props.show} toggle={props.toggle}>
-        <ModalHeader toggle={props.toggle}>Editar dados do cliente</ModalHeader>
+        <ModalHeader toggle={props.toggle}>Adicionar consulta</ModalHeader>
         <ModalBody>
-          <RegistrationForm time={Time} />
+          <RegistrationForm toggle={props.toggle} time={Time} />
         </ModalBody>
       </Modal>
     </>

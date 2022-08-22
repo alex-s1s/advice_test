@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
-import { MdEdit } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
 import { GlobalContext } from "../../hooks/context/globalState";
 import useDataQuerie from "../../locales/dataQueries";
 import DeletePatiente from "../Delete";
+import ShowData from "../ShowData";
 import "./index.css";
 
 function ListQueries(props) {
@@ -11,6 +12,18 @@ function ListQueries(props) {
   const contextForm = useContext(GlobalContext);
   const [modal, setModal] = useState(false);
   const [idDelete, setIdDelete] = useState();
+
+  const [showData, setShowData] = useState(false);
+  const [idShow, setIdShow] = useState();
+
+  const toggleShow = () => {
+    setShowData(!showData);
+  };
+
+  function showPatience(id) {
+    setIdShow(id);
+    toggleShow();
+  }
 
   const toggle = () => {
     setModal(!modal);
@@ -23,7 +36,7 @@ function ListQueries(props) {
 
   return (
     <>
-      <div class="ex3 card border-0 mb-3 bg-light">
+      <div class={`ex3 card border-0 mb-3 ${props.bg ? "bg-light" : ""}`}>
         <div className="ps-2">{props.value}</div>
         {contextForm.patients.map((data) => {
           return (
@@ -36,7 +49,11 @@ function ListQueries(props) {
                 </div>
                 <div className="d-flex align-items-center justify-content-center">
                   <img
-                    src="{data.data.data?.employee?.image}"
+                    src={
+                      data.gender === "1"
+                        ? "https://www.svgrepo.com/show/60582/avatar.svg"
+                        : "https://www.svgrepo.com/show/105032/avatar.svg"
+                    }
                     width="35px"
                     height="35px"
                     alt=""
@@ -46,15 +63,24 @@ function ListQueries(props) {
                     <h6>{data.cpf}</h6>
                   </div>
                 </div>
-                <div className="d-flex align-items-end">
-                  <BsFillTrashFill
-                    size={20}
-                    onClick={() => showModal(data.id)}
+                <div className="d-flex align-items-end align-items-center justify-content-evenly w-25">
+                  {props.bg && (
+                    <>
+                      <BsFillTrashFill
+                        size={20}
+                        onClick={() => showModal(data.id)}
+                      />
+                    </>
+                  )}
+                  <MdSearch
+                    size={26}
+                    className="pointer "
+                    onClick={() => showPatience(data.id)}
                   />
-                  <MdEdit size={20} />
                 </div>
               </div>
               <DeletePatiente id={idDelete} toggle={toggle} show={modal} />
+              <ShowData id={idShow} toggle={toggleShow} show={showData} />
             </div>
           );
         })}

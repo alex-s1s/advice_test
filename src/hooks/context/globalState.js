@@ -12,7 +12,7 @@ const initialState = {
       name: "Eduardo Júnior",
       price: "23",
       status: "warning",
-      time: "1",
+      time: "5",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const initialState = {
       name: "Andréia Carla",
       price: "78",
       status: "info",
-      time: "4",
+      time: "6",
     },
     {
       id: 3,

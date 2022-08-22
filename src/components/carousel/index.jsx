@@ -1,79 +1,26 @@
 import React from "react";
-
-function Carousel() {
+import "./index.scss";
+function LoadingSkeleton() {
   return (
     <div>
-      <div
-        id="carouselExampleIndicators"
-        class="carousel slide"
-        data-bs-ride="true"
-      >
-        <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img
-              src="https://cdn.pixabay.com/photo/2014/12/10/20/48/laboratory-563423_1280.jpg"
-              class="d-block w-100"
-              alt="..."
-            />
+      <div class="card is-loading">
+        <div className="row flex-row row g-2 px-2 pb-2">
+          <div class="col">
+            <div class="image rounded"></div>
           </div>
-          <div class="carousel-item">
-            <img
-              src="https://cdn.pixabay.com/photo/2014/12/10/20/48/laboratory-563423_1280.jpg"
-              class="d-block w-100"
-              alt="..."
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://cdn.pixabay.com/photo/2014/12/10/20/48/laboratory-563423_1280.jpg"
-              class="d-block w-100"
-              alt="..."
-            />
+          <div class="col">
+            <div class="image rounded"></div>
           </div>
         </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        <div class="content flex-row row g-2 px-2">
+          <div className="pb-2">
+            <p></p>
+            <h2></h2>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Carousel;
+export default LoadingSkeleton;

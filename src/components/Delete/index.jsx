@@ -27,7 +27,7 @@ function DeletePatiente(props) {
           </button>
           <button
             type="button"
-            class="btn btn-primary ml-2"
+            class="btn btn-danger ml-2"
             onClick={() => Delete()}
           >
             Deletar paciente

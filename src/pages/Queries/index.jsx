@@ -33,7 +33,7 @@ function Queries() {
               <MdAddCircleOutline />
             </button>
           </div>
-          <ListQueries value={dateCalendar} />
+          <ListQueries bg={true} value={dateCalendar} />
         </div>
       </div>
       <ModalComponent toggle={toggle} show={modal} />

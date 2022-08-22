@@ -1,9 +1,0 @@
-@media screen and (max-width: 900px) {
-    .search {
-        display: flex;
-        flex-direction: column !important;
-    }
-    .input-group{
-        width: 100% !important;
-    }
-}

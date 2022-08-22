@@ -41,7 +41,8 @@ function ShowData(props) {
                     <span>Valor: </span> R${data.price}
                   </p>
                   <p>
-                    <span>status: </span> {data.status}
+                    <span>status: </span>
+                    {data.status === "info" ? "Aberto" : "Fechado"}
                   </p>
                   <p>
                     <span>Horário: </span>

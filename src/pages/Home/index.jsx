@@ -1,6 +1,6 @@
 import React from "react";
 import CalendarComponent from "../../components/Calendar";
-import Carousel from "../../components/carousel";
+import LoadingSkeleton from "../../components/carousel";
 import ListQueries from "../../components/ListQueries";
 import useQueries from "../../hooks/queries/queries";
 import useDataQuerie from "../../locales/dataQueries";
@@ -11,10 +11,11 @@ function Home() {
   const { Time } = useDataQuerie();
 
   return (
-    <div className="home bg-light">
+    <div className="home">
       <div class="card-doctor d-flex">
-        <div class="tables-card p-2 w-50 ">
-          <Carousel />
+        <div class="tables-card px-2 w-50 ">
+          <span>Dashboard</span>
+          <LoadingSkeleton />
           <h2>Description</h2>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam itaque
@@ -31,7 +32,7 @@ function Home() {
           </p>
         </div>
 
-        <div class="card-queries w-50 bg-light">
+        <div class="card-queries w-50">
           <span>Consultas marcadas</span>
           <div className="queries row g-2">
             <CalendarComponent onChange={onChange} />

@@ -33,6 +33,7 @@ function RegistrationForm(props) {
   const onSubmit = () => {
     const valuesForm = getValues();
     addPatiente(valuesForm);
+    props.toggle();
   };
 
   return (
